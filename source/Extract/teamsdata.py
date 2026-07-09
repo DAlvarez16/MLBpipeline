@@ -1,10 +1,11 @@
 import requests 
 import json
 
-teamsurl = 'https://statsapi.mlb.com/api/v1/teams?sportId=1'
-teams = json.loads(requests.get(teamsurl).text)
+def get_teams():
+    teamsurl = 'https://statsapi.mlb.com/api/v1/teams?sportId=1'
+    teams = json.loads(requests.get(teamsurl).text)
+    return teams
 
-for team in teams['teams']:
-    print(f"{team['name']} -- {team['teamCode']} -- {team['teamName']} -- {team['locationName']} -- {team['venue']['name']}")
+
 
 

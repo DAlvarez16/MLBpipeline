@@ -1,9 +1,8 @@
 import requests 
 import json
 
-leagueurl = 'https://statsapi.mlb.com/api/v1/league'
-league = json.loads(requests.get(leagueurl).text)
+def get_leagues():
+    leagueurl = 'https://statsapi.mlb.com/api/v1/league'
+    league = json.loads(requests.get(leagueurl).text)
+    return league
 
-for league in league['leagues']:
-    if league['id'] in [103, 104]:
-        print(f"{league['name']} -- {league['abbreviation']}")
