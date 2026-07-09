@@ -1,0 +1,1 @@
+CREATE DATABASE mlb_data_pipeline;
