@@ -6,3 +6,4 @@ def get_divisions():
     return divisions
 
 
+print(json.dumps(get_divisions(), indent=4))
