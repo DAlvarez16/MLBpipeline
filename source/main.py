@@ -7,11 +7,14 @@ from extract.leaguedata import get_leagues;
 from extract.venuedata import get_venues;
 from extract.divisiondata import get_divisions;
 from extract.teamsdata import get_teams;
+from extract.gamesdata import get_games;
+from transform.gamesTransform import transform_games;
 from transform.leagueTransform import transform_leagues;
 from transform.venueTransform import transform_venues;
 from transform.divisionTransform import transform_division;
 from transform.teamsTransform import transform_teams;
 from transform.leagueTransform import transform_leagues;
+from load.gamesload import load_games;
 from load.leagueload import load_leagues;
 from load.divisionload import load_divisions;
 from load.teamsload import load_teams;
@@ -33,4 +36,9 @@ teams = get_teams();
 transformed_teams = transform_teams(teams);
 load_teams(transformed_teams);
 
+games = get_games();
+transformed_games = transform_games(games,transformed_teams);
+load_games(transformed_games);
 
+
+print("Data pipeline executed successfully!");

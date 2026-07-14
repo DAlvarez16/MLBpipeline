@@ -1,2 +1,1 @@
-import requests
-import json
+SELECT games.*, teams.team_name from games join teams on games.homeTeamId = teams.team_id 

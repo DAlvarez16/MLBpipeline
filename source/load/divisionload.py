@@ -31,5 +31,6 @@ def load_divisions(transformed_divisions):
                 "division_name": division["division_name"],
                 "league_id": division["league_id"],
                 "division_abbreviation": division["division_abbreviation"]
+                
             }
         )
