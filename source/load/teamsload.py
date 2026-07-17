@@ -1,22 +1,8 @@
-import requests
-from sqlalchemy import create_engine
+from .database import engine
 from sqlalchemy import text
-import json
-from dotenv import load_dotenv
-import os
 
 def load_teams(transformed_teams):
-    load_dotenv()
-
-    USER = os.getenv('DB_USER')
-    PASSWORD = os.getenv('DB_PASSWORD')
-    HOST = 'localhost'
-    PORT = 5432
-    DB_NAME = os.getenv('DB_NAME')
-
-    conexion_string = f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}"
-    engine = create_engine(conexion_string)
-
+    
     with engine.begin() as connection:
         for team in transformed_teams:
             connection.execute(
@@ -24,7 +10,13 @@ def load_teams(transformed_teams):
                 INSERT INTO teams (team_id, team_name, team_code, location_name, venue_id, division_id, league_id)
                 VALUES (:team_id, :team_name, :team_code, :location_name, :venue_id, :division_id, :league_id)
                 ON CONFLICT (team_id)
-                DO NOTHING;
+                DO UPDATE SET
+                 team_name = EXCLUDED.team_name,
+                 team_code = EXCLUDED.team_code,
+                 location_name = EXCLUDED.location_name,
+                 venue_id = EXCLUDED.venue_id,
+                 division_id = EXCLUDED.division_id,
+                 league_id = EXCLUDED.league_id;
             """),
             {
                 "team_id": team["id"],
