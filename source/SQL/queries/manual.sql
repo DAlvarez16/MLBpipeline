@@ -1,13 +1,17 @@
 SELECT
-    t.team_name,
-    s.wins,
-    s.losses,
-    s.home_wins,
-    s.away_wins,
-    s.home_losses,
-    s.away_losses,
-    s.total_games
-FROM seasonrecords s
-JOIN teams t
-    ON s.team_id = t.team_id
-ORDER BY s.wins DESC;
+
+    team_id,
+
+    wins,
+
+    losses,
+
+    total_games,
+
+    (wins + losses) AS calculated_games,
+
+    home_wins + away_wins AS total_wins,
+
+    home_losses + away_losses AS total_losses
+
+FROM team_season_records;
